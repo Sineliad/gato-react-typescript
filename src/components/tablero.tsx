@@ -8,20 +8,11 @@ class Tablero extends Component {
 
   renderCeldas = () => {
     const { celdas } = this.state;
-    return celdas.map((celda, i) => (
-      <div key={i}>
-        <Celda value={celda} />
-      </div>
-    ));
+    return celdas.map((celda, i) => <Celda key={i} value={celda} />);
   };
 
   render() {
-    return (
-      <div>
-        Soy el componente tablero
-        {this.renderCeldas()}
-      </div>
-    );
+    return <div className="tablero">{this.renderCeldas()}</div>;
   }
 }
 

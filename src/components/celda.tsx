@@ -5,7 +5,7 @@ type CeldaProps = {
 }
 
 const Celda = (props: CeldaProps) => {
-  return <div> {props.value}  </div>;
+  return <div className="celda"> {props.value} </div>;
 };
 
 export default Celda;
