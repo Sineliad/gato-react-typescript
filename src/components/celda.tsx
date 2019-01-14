@@ -1,11 +1,12 @@
 import * as React from "react";
 
 type CeldaProps = {
-    value: Number
+    id: Number,
+    value?: String
 }
 
 const Celda = (props: CeldaProps) => {
-  return <div className="celda"> {props.value} </div>;
+  return <div className="celda"> {props.id} {props.value} </div>;
 };
 
 export default Celda;

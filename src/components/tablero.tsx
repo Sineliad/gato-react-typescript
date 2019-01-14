@@ -8,7 +8,7 @@ class Tablero extends Component {
 
   renderCeldas = () => {
     const { celdas } = this.state;
-    return celdas.map((celda, i) => <Celda key={i} value={celda} />);
+    return celdas.map((celda, i) => <Celda key={i} id={celda} />);
   };
 
   render() {
