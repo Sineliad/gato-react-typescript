@@ -13,6 +13,8 @@ interface IGame {
   jugadores: Jugador[];
   turno: Jugador;
   gameFinish: Boolean;
+  gameWin: Boolean;
+  movimientos: Number;
 }
 
 class Game extends Component<{}, IGame> {
@@ -23,7 +25,9 @@ class Game extends Component<{}, IGame> {
       { name: "Matias", identifier: "O" }
     ],
     turno: { name: "Dailenis", identifier: "X", age: 30 },
-    gameFinish: false
+    gameFinish: false,
+    movimientos: 0,
+    gameWin: false
   };
 
   public switchPlayerTurn = () => {
@@ -41,7 +45,7 @@ class Game extends Component<{}, IGame> {
     this.setState({ turno: next_player });
   };
 
-  public validateGameWin = (newCeldas: String[]) => {
+  public validateGameFinish = (newCeldas: String[], movimientos: Number) => {
     //Validar Horizontales: 0,1,2 - 3,4,5 - 6-7-8
     if (
       newCeldas[0] === newCeldas[1] &&
@@ -49,7 +53,7 @@ class Game extends Component<{}, IGame> {
       newCeldas[2] !== ""
     ) {
       console.log("JUEGO GANADO");
-      this.setState({ gameFinish: true });
+      this.setState({ gameFinish: true, gameWin: true });
       return true;
     }
     if (
@@ -58,7 +62,8 @@ class Game extends Component<{}, IGame> {
       newCeldas[5] !== ""
     ) {
       console.log("JUEGO GANADO");
-      this.setState({ gameFinish: true });
+      this.setState({ gameFinish: true, gameWin: true });
+
       return true;
     }
     if (
@@ -67,7 +72,7 @@ class Game extends Component<{}, IGame> {
       newCeldas[8] !== ""
     ) {
       console.log("JUEGO GANADO");
-      this.setState({ gameFinish: true });
+      this.setState({ gameFinish: true, gameWin: true });
       return true;
     }
     //Validar Verticales: 0,3,6 - 1,4,7  -  2,5,8
@@ -77,7 +82,7 @@ class Game extends Component<{}, IGame> {
       newCeldas[6] !== ""
     ) {
       console.log("JUEGO GANADO");
-      this.setState({ gameFinish: true });
+      this.setState({ gameFinish: true, gameWin: true });
       return true;
     }
     if (
@@ -86,7 +91,7 @@ class Game extends Component<{}, IGame> {
       newCeldas[7] !== ""
     ) {
       console.log("JUEGO GANADO");
-      this.setState({ gameFinish: true });
+      this.setState({ gameFinish: true, gameWin: true });
       return true;
     }
     if (
@@ -95,7 +100,7 @@ class Game extends Component<{}, IGame> {
       newCeldas[8] !== ""
     ) {
       console.log("JUEGO GANADO");
-      this.setState({ gameFinish: true });
+      this.setState({ gameFinish: true, gameWin: true });
       return true;
     }
     //Validar Diagonales 0,4,8  -   2,4,6
@@ -105,7 +110,7 @@ class Game extends Component<{}, IGame> {
       newCeldas[8] !== ""
     ) {
       console.log("JUEGO GANADO");
-      this.setState({ gameFinish: true });
+      this.setState({ gameFinish: true, gameWin: true });
       return true;
     }
     if (
@@ -114,8 +119,11 @@ class Game extends Component<{}, IGame> {
       newCeldas[6] !== ""
     ) {
       console.log("JUEGO GANADO");
-      this.setState({ gameFinish: true });
+      this.setState({ gameFinish: true, gameWin: true });
       return true;
+    }
+    if (movimientos === 9) {
+      this.setState({ gameFinish: true });
     }
     return false;
   };
@@ -128,21 +136,24 @@ class Game extends Component<{}, IGame> {
       //actualizar tablero
       newCeldas[index] = turno.identifier;
       console.log("****newCeldas: ", newCeldas);
-      this.setState({ celdas: newCeldas });
-      const gameWin = this.validateGameWin(newCeldas);
-      if (!gameWin) {
+      let movimientos = this.state.movimientos + 1;
+      this.setState({ celdas: newCeldas, movimientos });
+      const gameFinish = this.validateGameFinish(newCeldas, movimientos);
+      if (!gameFinish) {
         this.switchPlayerTurn();
       }
     }
   };
 
   render() {
-    const { celdas, jugadores, turno, gameFinish } = this.state;
+    const { celdas, jugadores, turno, gameFinish, gameWin } = this.state;
     return (
       <div>
-        {gameFinish
+        {gameWin
           ? `Juego ganado por ${turno.name}`
-          : `Turno de ${turno.name}`}
+          : gameFinish
+            ? "Nadie ganó el juego"
+            : `Turno de ${turno.name}`}
 
         <Tablero celdas={celdas} handleCelClick={this.handleCelClick} />
         {jugadores.map((jugador, i) => (
