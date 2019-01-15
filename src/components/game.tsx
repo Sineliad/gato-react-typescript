@@ -25,12 +25,25 @@ class Game extends Component<{}, IGame> {
   };
 
   public handleCelClick = (index: any) => () => {
-    const {turno, celdas} = this.state;
+    const { turno, celdas, jugadores } = this.state;
     console.log("*****handleCelClick action celdaaa: ", index);
     let newCeldas = [...celdas];
+
+    //actualizar tablero
     newCeldas[index] = turno.identifier;
     console.log("****newCeldas: ", newCeldas);
-    this.setState({celdas: newCeldas});
+    //actulizar turno
+    let next_player = jugadores[0];
+    if (turno.identifier == "X") {
+      // X JUGADOR[0]
+      next_player = jugadores[1];
+    }
+    if (turno.identifier == "O") {
+      //O JUGADOR[1]
+      next_player = jugadores[0];
+    }
+
+    this.setState({ celdas: newCeldas, turno: next_player });
   };
 
   render() {

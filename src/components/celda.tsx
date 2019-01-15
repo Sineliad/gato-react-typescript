@@ -1,14 +1,15 @@
 import * as React from "react";
 
 type CeldaProps = {
-    id: Number,
-    value?: Object,
-    handleCelClick: any
-}
+  id: Number;
+  value?: Object;
+  handleCelClick: any;
+};
 
 const Celda = (props: CeldaProps) => {
-    console.log("props celdaaaaaaaaaaaaaaaaaaaaaaaaa: ", props)
-  return <div className="celda" onClick={props.handleCelClick}> {props.id}  </div>;
+  return <div className="celda" onClick={props.handleCelClick} />;
 };
 
 export default Celda;
+
+//{props.id}
