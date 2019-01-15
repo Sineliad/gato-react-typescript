@@ -8,7 +8,7 @@ class App extends Component {
     return (
       <div className="App">
         <header className="App-header">
-          <p> Tic Tac Toe - React - Typescript </p>
+          <p> Gato - React - Typescript </p>
           <Game />
           <img src={logo} className="App-logo" alt="logo" />
         </header>

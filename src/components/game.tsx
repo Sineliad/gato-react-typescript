@@ -42,7 +42,6 @@ class Game extends Component<{}, IGame> {
       //O JUGADOR[1]
       next_player = jugadores[0];
     }
-
     this.setState({ celdas: newCeldas, turno: next_player });
   };
 
