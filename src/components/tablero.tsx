@@ -1,19 +1,14 @@
-import React, { Component } from "react";
+import * as React from "react";
 import Celda from "./celda";
 
-class Tablero extends Component {
-  public state = {
-    celdas: [0, 1, 2, 3, 4, 5, 6, 7, 8] //9 celdas
-  };
+type TableroProps = {
+  celdas: any[];
+};
 
-  renderCeldas = () => {
-    const { celdas } = this.state;
-    return celdas.map((celda, i) => <Celda key={i} id={celda} />);
-  };
-
-  render() {
-    return <div className="tablero">{this.renderCeldas()}</div>;
-  }
-}
+const Tablero = (props: TableroProps) => {
+  return <div className="tablero">
+      {props.celdas.map( (celda, i) => <Celda key={i} id={i} value={celda} /> )}
+  </div>;
+};
 
 export default Tablero;
