@@ -12,6 +12,7 @@ interface IGame {
   celdas: String[];
   jugadores: Jugador[];
   turno: Jugador;
+  gameFinish: Boolean;
 }
 
 class Game extends Component<{}, IGame> {
@@ -21,7 +22,8 @@ class Game extends Component<{}, IGame> {
       { name: "Dailenis", identifier: "X", age: 30 },
       { name: "Matias", identifier: "O" }
     ],
-    turno: { name: "Dailenis", identifier: "X", age: 30 }
+    turno: { name: "Dailenis", identifier: "X", age: 30 },
+    gameFinish: false
   };
 
   public switchPlayerTurn = () => {
@@ -47,7 +49,8 @@ class Game extends Component<{}, IGame> {
       newCeldas[2] !== ""
     ) {
       console.log("JUEGO GANADO");
-      return 1;
+      this.setState({ gameFinish: true });
+      return true;
     }
     if (
       newCeldas[3] === newCeldas[4] &&
@@ -55,7 +58,8 @@ class Game extends Component<{}, IGame> {
       newCeldas[5] !== ""
     ) {
       console.log("JUEGO GANADO");
-      return 1;
+      this.setState({ gameFinish: true });
+      return true;
     }
     if (
       newCeldas[6] === newCeldas[7] &&
@@ -63,7 +67,8 @@ class Game extends Component<{}, IGame> {
       newCeldas[8] !== ""
     ) {
       console.log("JUEGO GANADO");
-      return 1;
+      this.setState({ gameFinish: true });
+      return true;
     }
     //Validar Verticales: 0,3,6 - 1,4,7  -  2,5,8
     if (
@@ -72,7 +77,8 @@ class Game extends Component<{}, IGame> {
       newCeldas[6] !== ""
     ) {
       console.log("JUEGO GANADO");
-      return 1;
+      this.setState({ gameFinish: true });
+      return true;
     }
     if (
       newCeldas[1] === newCeldas[4] &&
@@ -80,7 +86,8 @@ class Game extends Component<{}, IGame> {
       newCeldas[7] !== ""
     ) {
       console.log("JUEGO GANADO");
-      return 1;
+      this.setState({ gameFinish: true });
+      return true;
     }
     if (
       newCeldas[2] === newCeldas[5] &&
@@ -88,7 +95,8 @@ class Game extends Component<{}, IGame> {
       newCeldas[8] !== ""
     ) {
       console.log("JUEGO GANADO");
-      return 1;
+      this.setState({ gameFinish: true });
+      return true;
     }
     //Validar Diagonales 0,4,8  -   2,4,6
     if (
@@ -97,7 +105,8 @@ class Game extends Component<{}, IGame> {
       newCeldas[8] !== ""
     ) {
       console.log("JUEGO GANADO");
-      return 1;
+      this.setState({ gameFinish: true });
+      return true;
     }
     if (
       newCeldas[2] === newCeldas[4] &&
@@ -105,28 +114,36 @@ class Game extends Component<{}, IGame> {
       newCeldas[6] !== ""
     ) {
       console.log("JUEGO GANADO");
-      return 1;
+      this.setState({ gameFinish: true });
+      return true;
     }
+    return false;
   };
 
   public handleCelClick = (index: any) => () => {
-    const { turno, celdas } = this.state;
-    console.log("*****handleCelClick action celdaaa: ", index);
-    let newCeldas = [...celdas];
-    //actualizar tablero
-    newCeldas[index] = turno.identifier;
-    console.log("****newCeldas: ", newCeldas);
-    this.setState({ celdas: newCeldas });
-
-    this.validateGameWin(newCeldas);
-    this.switchPlayerTurn();
+    const { turno, celdas, gameFinish } = this.state;
+    if (!gameFinish && celdas[index] === "") {
+      console.log("*****handleCelClick action celdaaa: ", index);
+      let newCeldas = [...celdas];
+      //actualizar tablero
+      newCeldas[index] = turno.identifier;
+      console.log("****newCeldas: ", newCeldas);
+      this.setState({ celdas: newCeldas });
+      const gameWin = this.validateGameWin(newCeldas);
+      if (!gameWin) {
+        this.switchPlayerTurn();
+      }
+    }
   };
 
   render() {
-    const { celdas, jugadores, turno } = this.state;
+    const { celdas, jugadores, turno, gameFinish } = this.state;
     return (
       <div>
-        <b> Turno de: {turno.name} </b>{" "}
+        {gameFinish
+          ? `Juego ganado por ${turno.name}`
+          : `Turno de ${turno.name}`}
+
         <Tablero celdas={celdas} handleCelClick={this.handleCelClick} />
         {jugadores.map((jugador, i) => (
           <Jugador
