@@ -8,9 +8,8 @@ type JugadorProps = {
 
 const Jugador = (props: JugadorProps) => {
     return <div>
-        <b> Nombre: {props.name} </b>
-        <p> Identificador: {props.identifier}</p>
-        <p> Edad: {props.age}</p>
+        <b> Jugador: {props.name} </b>
+        <p> Identificador: {props.identifier} Edad: {props.age}</p>
       </div>
 }
 

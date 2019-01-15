@@ -3,12 +3,22 @@ import Celda from "./celda";
 
 type TableroProps = {
   celdas: any[];
+  handleCelClick: any;
 };
 
 const Tablero = (props: TableroProps) => {
-  return <div className="tablero">
-      {props.celdas.map( (celda, i) => <Celda key={i} id={i} value={celda} /> )}
-  </div>;
+  return (
+    <div className="tablero">
+      {props.celdas.map((celda, i) => (
+        <Celda
+          key={i}
+          id={i}
+          value={celda}
+          handleCelClick={props.handleCelClick(celda)}
+        />
+      ))}
+    </div>
+  );
 };
 
 export default Tablero;
