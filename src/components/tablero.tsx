@@ -14,7 +14,7 @@ const Tablero = (props: TableroProps) => {
           key={i}
           id={i}
           value={celda}
-          handleCelClick={props.handleCelClick(celda)}
+          handleCelClick={props.handleCelClick(i)}
         />
       ))}
     </div>

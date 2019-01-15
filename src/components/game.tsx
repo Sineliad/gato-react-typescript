@@ -16,7 +16,7 @@ interface IGame {
 
 class Game extends Component<{}, IGame> {
   public state = {
-    celdas: [0, 1, 2, 3, 4, 5, 6, 7, 8],
+    celdas: ["", "", "", "", "", "", "", "", ""],
     jugadores: [
       { name: "Dailenis", identifier: "X", age: 30 },
       { name: "Matias", identifier: "O" }
@@ -24,8 +24,13 @@ class Game extends Component<{}, IGame> {
     turno: { name: "Dailenis", identifier: "X", age: 30 }
   };
 
-  public handleCelClick = (celda: any) => () => {
-    console.log("*****handleCelClick action celdaaa: ", celda);
+  public handleCelClick = (index: any) => () => {
+    const {turno, celdas} = this.state;
+    console.log("*****handleCelClick action celdaaa: ", index);
+    let newCeldas = [...celdas];
+    newCeldas[index] = turno.identifier;
+    console.log("****newCeldas: ", newCeldas);
+    this.setState({celdas: newCeldas});
   };
 
   render() {
