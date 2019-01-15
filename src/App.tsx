@@ -1,8 +1,7 @@
 import React, { Component } from "react";
 import logo from "./logo.svg";
 import "./App.css";
-
-import Tablero  from "./components/tablero";
+import Game from "./components/game";
 
 class App extends Component {
   render() {
@@ -10,7 +9,7 @@ class App extends Component {
       <div className="App">
         <header className="App-header">
           <p>Gato React - Typescript</p>
-          <Tablero />
+          <Game />
           <img src={logo} className="App-logo" alt="logo" />
         </header>
       </div>
