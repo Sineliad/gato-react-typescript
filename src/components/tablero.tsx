@@ -2,7 +2,7 @@ import * as React from "react";
 import Celda from "./celda";
 
 type TableroProps = {
-  celdas: any[];
+  celdas: String[];
   handleCelClick: any;
 };
 
