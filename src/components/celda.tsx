@@ -6,10 +6,13 @@ type CeldaProps = {
   handleCelClick: any;
 };
 
-const Celda = (props: CeldaProps) => {
-    console.log("props.value: ", props.value);
-  return <div className="celda" data-jugador={props.value} onClick={props.handleCelClick} />;
-};
+const Celda = (props: CeldaProps) => (
+  <div
+    className="celda"
+    data-jugador={props.value}
+    onClick={props.handleCelClick}
+  />
+);
 
 export default Celda;
 
