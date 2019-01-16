@@ -17,18 +17,20 @@ interface IGame {
   movimientos: Number;
 }
 
+const InitialState = {
+  celdas: ["", "", "", "", "", "", "", "", ""],
+  jugadores: [
+    { name: "Dailenis", identifier: "X", age: 30 },
+    { name: "Matias", identifier: "O" }
+  ],
+  turno: { name: "Dailenis", identifier: "X", age: 30 },
+  gameFinish: false,
+  movimientos: 0,
+  gameWin: false
+};
+
 class Game extends Component<{}, IGame> {
-  public state = {
-    celdas: ["", "", "", "", "", "", "", "", ""],
-    jugadores: [
-      { name: "Dailenis", identifier: "X", age: 30 },
-      { name: "Matias", identifier: "O" }
-    ],
-    turno: { name: "Dailenis", identifier: "X", age: 30 },
-    gameFinish: false,
-    movimientos: 0,
-    gameWin: false
-  };
+  public state = InitialState;
 
   public switchPlayerTurn = () => {
     const { turno, jugadores } = this.state;
@@ -145,6 +147,11 @@ class Game extends Component<{}, IGame> {
     }
   };
 
+  public restartGame = () => {
+    console.log("Restart Game");
+    this.setState(InitialState);
+  };
+
   render() {
     const { celdas, jugadores, turno, gameFinish, gameWin } = this.state;
     return (
@@ -154,7 +161,9 @@ class Game extends Component<{}, IGame> {
           : gameFinish
             ? "Nadie ganó el juego"
             : `Turno de ${turno.name}`}
-
+        <br />
+        <button onClick={this.restartGame}>Reiniciar Juego</button>
+        <br />
         <Tablero celdas={celdas} handleCelClick={this.handleCelClick} />
         {jugadores.map((jugador, i) => (
           <Jugador
