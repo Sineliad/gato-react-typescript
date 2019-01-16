@@ -34,14 +34,14 @@ class Game extends Component<{}, IGame> {
 
   public switchPlayerTurn = () => {
     const { turno, jugadores } = this.state;
-    //actulizar turno
+    //actualizar turno
     let next_player = jugadores[0];
     if (turno.identifier == "X") {
-      // X JUGADOR[0]
+      // X [0]
       next_player = jugadores[1];
     }
     if (turno.identifier == "O") {
-      //O JUGADOR[1]
+      //O [1]
       next_player = jugadores[0];
     }
     this.setState({ turno: next_player });
@@ -54,7 +54,6 @@ class Game extends Component<{}, IGame> {
       newCeldas[1] === newCeldas[2] &&
       newCeldas[2] !== ""
     ) {
-      console.log("JUEGO GANADO");
       this.setState({ gameFinish: true, gameWin: true });
       return true;
     }
@@ -63,7 +62,6 @@ class Game extends Component<{}, IGame> {
       newCeldas[4] === newCeldas[5] &&
       newCeldas[5] !== ""
     ) {
-      console.log("JUEGO GANADO");
       this.setState({ gameFinish: true, gameWin: true });
 
       return true;
@@ -73,17 +71,15 @@ class Game extends Component<{}, IGame> {
       newCeldas[7] === newCeldas[8] &&
       newCeldas[8] !== ""
     ) {
-      console.log("JUEGO GANADO");
       this.setState({ gameFinish: true, gameWin: true });
       return true;
     }
-    //Validar Verticales: 0,3,6 - 1,4,7  -  2,5,8
+    //Validar Verticales: 0,3,6 - 1,4,7 - 2,5,8
     if (
       newCeldas[0] === newCeldas[3] &&
       newCeldas[3] === newCeldas[6] &&
       newCeldas[6] !== ""
     ) {
-      console.log("JUEGO GANADO");
       this.setState({ gameFinish: true, gameWin: true });
       return true;
     }
@@ -92,7 +88,6 @@ class Game extends Component<{}, IGame> {
       newCeldas[4] === newCeldas[7] &&
       newCeldas[7] !== ""
     ) {
-      console.log("JUEGO GANADO");
       this.setState({ gameFinish: true, gameWin: true });
       return true;
     }
@@ -101,17 +96,15 @@ class Game extends Component<{}, IGame> {
       newCeldas[5] === newCeldas[8] &&
       newCeldas[8] !== ""
     ) {
-      console.log("JUEGO GANADO");
       this.setState({ gameFinish: true, gameWin: true });
       return true;
     }
-    //Validar Diagonales 0,4,8  -   2,4,6
+    //Validar Diagonales 0,4,8  - 2,4,6
     if (
       newCeldas[0] === newCeldas[4] &&
       newCeldas[4] === newCeldas[8] &&
       newCeldas[8] !== ""
     ) {
-      console.log("JUEGO GANADO");
       this.setState({ gameFinish: true, gameWin: true });
       return true;
     }
@@ -120,7 +113,6 @@ class Game extends Component<{}, IGame> {
       newCeldas[4] === newCeldas[6] &&
       newCeldas[6] !== ""
     ) {
-      console.log("JUEGO GANADO");
       this.setState({ gameFinish: true, gameWin: true });
       return true;
     }
@@ -133,11 +125,9 @@ class Game extends Component<{}, IGame> {
   public handleCelClick = (index: any) => () => {
     const { turno, celdas, gameFinish } = this.state;
     if (!gameFinish && celdas[index] === "") {
-      console.log("*****handleCelClick action celdaaa: ", index);
       let newCeldas = [...celdas];
       //actualizar tablero
       newCeldas[index] = turno.identifier;
-      console.log("****newCeldas: ", newCeldas);
       let movimientos = this.state.movimientos + 1;
       this.setState({ celdas: newCeldas, movimientos });
       const gameFinish = this.validateGameFinish(newCeldas, movimientos);
@@ -148,7 +138,6 @@ class Game extends Component<{}, IGame> {
   };
 
   public restartGame = () => {
-    console.log("Restart Game");
     this.setState(InitialState);
   };
 
